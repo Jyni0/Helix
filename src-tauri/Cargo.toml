@@ -1,0 +1,58 @@
+[package]
+name = "helix"
+version = "4.3.0"
+description = "Helix — universal database client"
+authors = ["Helix"]
+edition = "2021"
+rust-version = "1.80"
+
+[lib]
+name = "helix_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+futures = "0.3"
+thiserror = "2"
+log = "0.4"
+env_logger = "0.11"
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+# Database drivers: PostgreSQL / MySQL / SQLite through sqlx, SQL Server through tiberius.
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "tls-rustls-ring-native-roots", "postgres", "mysql", "sqlite"] }
+tiberius = { version = "0.12", default-features = false, features = ["tds73", "rustls", "chrono", "sql-browser-tokio", "winauth"] }
+tokio-util = { version = "0.7", features = ["compat"] }
+
+
+# Passwords live in the system keychain.
+keyring = { version = "3", features = ["apple-native", "windows-native", "sync-secret-service", "crypto-rust"] }
+
+# Updates (GitHub release installers, checked against their SHA-256).
+ureq = "2"
+sha2 = "0.10"
+
+# WebView2 settings Tauri does not expose (browser shortcuts, Ctrl+wheel zoom).
+[target.'cfg(windows)'.dependencies]
+webview2-com = "0.39"
+windows-core = "0.62"
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.dev.package."*"]
+opt-level = 1
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+strip = true
