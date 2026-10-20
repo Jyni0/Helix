@@ -16,7 +16,6 @@ import { ObjectEditor, TableEditor } from "@/components/table/TableEditor";
 import { ErDiagram } from "@/components/erd/ErDiagram";
 import { SessionsView } from "@/components/panels/SessionsView";
 import { HistoryView } from "@/components/panels/HistoryView";
-import { HelixMark } from "@/components/layout/TitleBar";
 
 function TabIcon({ tab }: { tab: Tab }) {
   switch (tab.kind) {
@@ -129,8 +128,7 @@ function Welcome() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
     >
-      <HelixMark size={44} />
-      <h1 className="mt-4 text-[16px] font-semibold text-[var(--text-main)]">Helix</h1>
+      <h1 className="text-[16px] font-semibold text-[var(--text-main)]">Helix</h1>
       <div className="mt-1 max-w-[400px] text-center text-[12.5px] leading-relaxed text-[var(--text-dim)]">
         A database client for PostgreSQL, MySQL, SQLite and SQL Server.
       </div>
